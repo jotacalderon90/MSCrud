@@ -114,6 +114,12 @@ Si todo va bien, el sistema se levantará en el puerto 3000.
 | DELETE| /:object/:id|elimina registro por PK |
 
 
+### Por seguridad debes configurar una cabecera x-api-key en las llamadas
+```js
+x-api-key=mLOnjquDzVTQIbuzyBUHIJRINTXkV20C
+```
+ 
+
 Cualquier comentario favor informar. Suerte y buenos códigos ;) 
 
 
