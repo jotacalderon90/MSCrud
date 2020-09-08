@@ -31,9 +31,6 @@ const self = function(){
 	this.log('configurate compression');
 	this.express.use(compression());
 	
-	this.log('configurate passport');
-	this.setPassport();
-	
 	this.log('configurate routes');
 	new router(this, __dirname + "/routes");
 	

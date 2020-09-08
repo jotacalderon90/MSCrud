@@ -18,10 +18,7 @@ const self = function(){
 }
 
 self.prototype.isLoggedIn = function (req) {
-	if (req.isAuthenticated()) {
-		req.session.touch();
-		return true;
-	} else if (req.headers['x-api-key'] === 'mLOnjquDzVTQIbuzyBUHIJRINTXkV20C') {
+	if (req.headers['x-api-key'] === 'mLOnjquDzVTQIbuzyBUHIJRINTXkV20C') {
 		return true;
 	} else {
 		return false;
