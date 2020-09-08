@@ -1,0 +1,36 @@
+global.config = require('../config');
+
+const logger = require('../lib/logger')('server');
+
+logger.info('import app');
+
+const app = require('../app');
+const http = require('http');
+const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
+
+if (cluster.isMaster && config.CLUSTERING) {
+	logger.info(`Master ${process.pid} is running`);
+	for (let i = 0; i <= numCPUs; i++) {
+		cluster.fork();
+	}
+	cluster.on('exit', (worker) => {
+		logger.crit(`worker ${worker.process.pid} died`);
+	});
+} else {
+	logger.info('configure httpServer');
+	const httpServer = http.createServer(app);
+	httpServer.listen(config.HTTP_PORT);
+	httpServer.on('error', function(error){
+		logger.error(error);
+		process.exit(1);
+	});
+	logger.info(`httpServer configured`);
+
+	logger.info('configure httpsServer');
+
+	logger.info(`httpServer configured`);
+	if (!config.CLUSTERING) {
+		module.exports = httpServer;
+	}
+}
